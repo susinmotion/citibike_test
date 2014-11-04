@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Page Template</title>
+
+        <script type="text/javascript" src="d3.js"></script>
+<style type="text/css">        
+        </style>   
+    </head>
+    <body>
+
+        <script type="text/javascript">
+var w=500;
+var h=500;
+var padding=1;
+
+var svg=d3.select("body")
+        .append("svg")
+        .attr("width",w)
+        .attr("height",h);
+
+var dataset;
+var xScale = d3.scale.linear()
+    .domain([89, 2797])
+    .range([0, w])
+var yScale = d3.scale.linear()
+    .domain([15,19])
+    .range([0,h])
+
+
+
+d3.csv("citibike_small.csv", function(error, data) {
+    if (error){
+        console.log(error)
+    }
+    else{
+        dataset=data
+    };
+
+    svg.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+            return xScale(d["382"])
+        }) 
+        .attr("cy", function(d){
+            console.log(d["382"])
+            return yScale(["16"])
+        })
+        .attr("r", 5)
+        .attr("opacity",".8")
+        .attr("fill", function(d) {
+        return "rgb(0, 0, " + (d[0] * 12) + ")";});
+});
+
+
+// svg.selectAll("text")
+//    .data(dataset)
+//    .enter()
+//    .append("text")
+//    .text(function(d){return d})
+//     .attr("x", function(d,i){return i*w/dataset.length +4}) 
+//     .attr("y", function(d){return h-d*12 +15})
+//     .attr("fill","white")
+//     ;
+// var xScale =d3.scale.linear()
+//     .domain([0, d3.max(dataset, function(d) { return d; })])
+//     .range([0, h]);
+// var xAxis=d3.svg.axis()
+// .scale(xScale)
+// .orient("right ");
+
+// svg.append("g")
+// .call(xAxis);
+// //});
+        </script>
+    </body>
+</html>
